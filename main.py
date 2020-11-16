@@ -1,4 +1,9 @@
+'''
+Wilfred kisku
+Icons attributed to flaticon(www.flaticon.com)
+'''
 import pygame
+import random
 
 pygame.init()
 
@@ -10,14 +15,24 @@ pygame.display.set_caption('Space Invaders')
 icon = pygame.image.load('./res/ufo.png')
 pygame.display.set_icon(icon)
 
+#Player X
 playerImg = pygame.image.load('./res/space-invaders.png')
 playerX = 370
 playerY = 480
 playerX_change = 0
 
-def player(x,y):
+#Enemy
+enemyImg = pygame.image.load('./res/enemy32.png')
+enemyX = random.randint(0,764)
+enemyY = random.randint(50,150)
+enemyX_change = 0.3
+enemyY_change = 0
+def player(x, y):
 	screen.blit(playerImg, (x, y))
 
+def enemy(x, y):
+	screen.blit(enemyImg, (x,y))
+	
 running = True
 #check the status of running 
 #create a for loop that gets all the events 
@@ -48,5 +63,13 @@ while running:
 	if playerX >= 736:
 		playerX = 736	
 
+	enemyX += enemyX_change
+
+	if enemyX <= 0:
+		enemyX_change = 0.3
+	if enemyX >= 764:
+		enemyX_change = -0.3
+
 	player(playerX, playerY)
+	enemy(enemyX, enemyY)
 	pygame.display.update()	
