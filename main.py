@@ -10,9 +10,15 @@ pygame.init()
 #create the screen, the screen is executed and exits
 screen = pygame.display.set_mode((800,600))
 
+#font = pygame.font.Font(pygame.font.get_default_font(), 36)
+#text_surface = font.render('Hello world', antialias=True, color=(0, 0, 0))
+#screen.blit(text_surface, dest=(0,0))
+
+background = pygame.image.load('./res/background.jpg')
+
 #title and icon 
 pygame.display.set_caption('Space Invaders')
-icon = pygame.image.load('./res/ufo.png')
+icon = pygame.image.load('./res/enemy32.png')
 pygame.display.set_icon(icon)
 
 #Player X
@@ -26,7 +32,7 @@ enemyImg = pygame.image.load('./res/enemy32.png')
 enemyX = random.randint(0,764)
 enemyY = random.randint(50,150)
 enemyX_change = 0.3
-enemyY_change = 0
+enemyY_change = 4
 def player(x, y):
 	screen.blit(playerImg, (x, y))
 
@@ -43,7 +49,7 @@ while running:
 	screen.fill((0,0,0))	
 	#playerX += 0.1
 	#listen to a keyboard event
-	
+	screen.blit(background, (0,0))	
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			running = False
@@ -67,8 +73,10 @@ while running:
 
 	if enemyX <= 0:
 		enemyX_change = 0.3
+		enemyY += enemyY_change
 	if enemyX >= 764:
 		enemyX_change = -0.3
+		enemyY += enemyY_change
 
 	player(playerX, playerY)
 	enemy(enemyX, enemyY)
